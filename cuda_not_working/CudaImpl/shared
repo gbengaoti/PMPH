@@ -1,0 +1,88 @@
+__global__ void InitGlobsInvT(
+    REAL* d_myTimeline, // output
+    unsigned int numT,  // array dimensions
+    const REAL t) 
+__global__ void InitGlobsInvX(
+    REAL* d_myX,       // output
+    //REAL* d_myDxx,     // output
+    unsigned int* d_myXindex,  // output
+    unsigned int numX, //array dimensions
+    REAL s0, const REAL alpha, const REAL nu, const REAL t)  
+__global__ void InitGlobsInvY(
+    REAL* d_myY,       // output
+    //REAL* d_myDyy,     // output
+    unsigned int* d_myYindex,  // output
+    unsigned int numY, // array dimensions
+    REAL s0, const REAL alpha, const REAL nu,const REAL t)   // inputs
+{
+InitGlobs - Initializes globs.myTimeline,globs.myXIndex, globs.myYIndex 
+			sharedXY REAL s0, const REAL alpha, const REAL nu, const REAL t
+			shared XYT const REAL t
+}
+__global__ void InitOperatorCuda(REAL* d_x,       // input
+    							 REAL* d_Dxx,     // output
+    							 unsigned int n)
+{
+	InitOperator - writes to globs.myDxx
+}
+
+
+__global__ void UpdateParamsCuda(
+    REAL* d_x,          // input
+    REAL* d_y,          // input
+    REAL* d_timeline,   // input
+    REAL* d_varX,       // output
+    REAL* d_varY,       // output
+    REAL alpha, REAL beta, REAL nu, unsigned int g, // parameters
+    unsigned int numX, unsigned int numY, unsigned int outer)  // array dimensions
+
+writes to  d_varX, d_varY,       // output
+
+__global__ void ExplicitXNaiveCuda(
+    REAL* d_varX,       
+    REAL* d_results,
+    REAL* d_dxx,
+    REAL* d_u, // output
+    REAL* d_timeline, 
+    const int g,        // parameters
+    unsigned int numX, unsigned int numY, unsigned int outer)  // array dimensions
+{
+writes to u, reads all others
+}
+__global__ void ExplicitYNaiveCuda(
+    REAL* d_varY,       // output
+    REAL* d_results,
+    REAL* d_dyy,
+    REAL* d_u,
+    REAL* d_v,
+    unsigned int numX, unsigned int numY, unsigned int outer)  // array dimensions
+{
+ writes to u and v,reads all others
+}
+__global__ void ImplicitXSetupNaiveCuda(
+    REAL* d_varX,       // output
+    REAL* d_dxx,
+    REAL* d_a,
+    REAL* d_b,
+    REAL* d_c,
+    REAL* d_timeline, 
+    const int g,          // parameters
+    unsigned int numX, unsigned int numY, unsigned int outer)  // array dimensions
+{
+	writes into a, b and c
+}
+__global__ void ImplicitYSetupNaiveCuda(
+    REAL* d_varY,       // output
+    REAL* d_dyy,
+    REAL* d_a,
+    REAL* d_b,
+    REAL* d_c,
+    REAL* d_u,
+    REAL* d_v,
+    REAL* d_y,
+    REAL* d_timeline, 
+    const int g,          // parameters
+    unsigned int numX, unsigned int numY, unsigned int outer)
+{
+	writes a,b,c and y
+}

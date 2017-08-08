@@ -1,0 +1,2 @@
+it is safe to declare the variables inside and parallalize because in each iteration a new memory location is read and written so it is always safe to make the loop parallel.
+
